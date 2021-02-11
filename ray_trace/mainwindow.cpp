@@ -25,7 +25,27 @@ struct Sphere {
 Sphere s1 = {{0, -1, 3}, 1, {255, 0, 0}};
 Sphere s2 = {{2, 0, 4}, 1, {0, 0, 255}};
 Sphere s3 = {{-2, 0, 4}, 1, {0, 255, 0}};
-std::vector<Sphere> objects = {s1, s2, s3};
+Sphere s4 = {{0, -5001, 0}, 5000, {255, 255, 0}};
+std::vector<Sphere> objects = {s1, s2, s3, s4};
+
+
+struct Light {
+    enum type {
+        ambient = 0,
+        point,
+        directional
+    };
+
+    type t;
+    double intensity;
+    std::vector<double> position;
+    std::vector<double> direction;
+};
+
+Light l1 = {Light::type::ambient, 0.2};
+Light l2 = {Light::type::point, 0.6, {-1, 1, 0}};
+Light l3 = {Light::type::directional, 0.2, {}, {1 , 4, 4}};
+std::vector<Light> lights = {l1, l2, l3};
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -82,6 +102,53 @@ std::vector<double> IntersectRaySphere(const std::vector<double>& O, const std::
     return {t1, t2};
 }
 
+
+double VectorLength(const std::vector<double>& v) {
+    return sqrt(v[0] * v[0] + v[1] * v[1] + v[2] * v[2]);
+}
+
+std::vector<double> VectorSum(const std::vector<double>& u, const std::vector<double>& v) {
+    return {v[0] + u[0], v[1] + u[1], v[2] + u[2]};
+}
+
+std::vector<double> VectorMult(const std::vector<double>& u, const double& v) {
+    return {u[0] * v, u[1] * v, u[2] * v};
+}
+
+std::vector<int> VectorMult(const std::vector<int>& u, const double& v) {
+    return {(int) round(u[0] * v), (int) round(u[1] * v), (int) round(u[2] * v)};
+}
+
+
+std::vector<double> VectorDiff(const std::vector<double>& u, const std::vector<double>& v) {
+    return {u[0] - v[0], u[1] - v[1], u[2] - v[2]};
+}
+
+double ComputeLightning(const std::vector<double>& P, const std::vector<double>& N) {
+    double i = 0;
+    std::vector<double> L;
+    for (const auto& light : lights) {
+        if (light.t == Light::type::ambient) {
+            i += light.intensity;
+        } else {
+            if (light.t == Light::type::point) {
+                L = {light.position[0] - P[0],
+                     light.position[1] - P[1],
+                     light.position[2] - P[2]};
+            } else {
+                L =light.direction;
+            }
+
+            double n_dot_l = ScalarMult(N, L);
+            if (n_dot_l > 0) {
+                i += light.intensity * n_dot_l / (VectorLength(N) * VectorLength(L));
+            }
+        }
+    }
+
+    return i;
+}
+
 std::vector<int> TraceRay(const std::vector<double>& O, const std::vector<double>& D, double t_min, double t_max) {
     double closest_t = std::numeric_limits<double>::max();
     Sphere* closest_sphere = nullptr;
@@ -101,7 +168,14 @@ std::vector<int> TraceRay(const std::vector<double>& O, const std::vector<double
         return BG_COLOR;
     }
 
-    return closest_sphere->color;
+    std::vector<double> P = VectorSum(O, VectorMult(D, closest_t));
+    std::vector<double> N = VectorDiff(P, closest_sphere->center);
+    N = {N[0] / VectorLength(N),
+         N[1] / VectorLength(N),
+         N[2] / VectorLength(N)};
+
+    return VectorMult(closest_sphere->color, ComputeLightning(P, N));
+//    return closest_sphere->color; Old shit, Man
 }
 
 void MainWindow::draw_spheres() {
