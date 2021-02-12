@@ -62,6 +62,25 @@ std::vector<double> CanvasToViewport(double x, double y) {
     return {x * Vw / Cw, y * Vh / Ch, d};
 }
 
+void ClosestIntersection (const std::vector<double>& O,
+                          const std::vector<double>& D,
+                          const double& t_min,
+                          const double& t_max,
+                          double& closest_t,
+                          Object*& closest_object) {
+    for (size_t i = 0; i < objects.size(); i++) {
+        std::vector<double> intersections = objects[i]->IntersectRay(O, D);
+        if (intersections[0] > t_min && intersections[0] < t_max && intersections[0] < closest_t) {
+            closest_t = intersections[0];
+            closest_object= objects[i];
+        }
+        if (intersections[1] > t_min && intersections[1] < t_max && intersections[1] < closest_t) {
+            closest_t = intersections[1];
+            closest_object = objects[i];
+        }
+    }
+}
+
 double ComputeLightning(const std::vector<double>& P,
                         const std::vector<double>& N,
                         const std::vector<double>& V,
@@ -72,13 +91,25 @@ double ComputeLightning(const std::vector<double>& P,
         if (light.t == Light::type::ambient) {
             i += light.intensity;
         } else {
+            double t_max;
             if (light.t == Light::type::point) {
                 L = {light.position[0] - P[0],
                      light.position[1] - P[1],
                      light.position[2] - P[2]};
+                t_max = 1;
             } else {
                 L =light.direction;
+                t_max = std::numeric_limits<double>::max();
             }
+
+            // Shadow check
+            double shadow_t = std::numeric_limits<double>::max();
+            Object* closest_shadow_object = nullptr;
+            ClosestIntersection(P, L, 1E-3, t_max, shadow_t, closest_shadow_object);
+            if (closest_shadow_object != nullptr) {
+                continue;
+            }
+
 
             // Diffusual
             double n_dot_l = VectorScalarMult(N, L);
@@ -103,17 +134,8 @@ double ComputeLightning(const std::vector<double>& P,
 std::vector<int> TraceRay(const std::vector<double>& O, const std::vector<double>& D, double t_min, double t_max) {
     double closest_t = std::numeric_limits<double>::max();
     Object* closest_object = nullptr;
-    for (size_t i = 0; i < objects.size(); i++) {
-        std::vector<double> intersections = objects[i]->IntersectRay(O, D);
-        if (intersections[0] > t_min && intersections[0] < t_max && intersections[0] < closest_t) {
-            closest_t = intersections[0];
-            closest_object= objects[i];
-        }
-        if (intersections[1] > t_min && intersections[1] < t_max && intersections[1] < closest_t) {
-            closest_t = intersections[1];
-            closest_object = objects[i];
-        }
-    }
+
+    ClosestIntersection(O, D, t_min, t_max, closest_t, closest_object);
 
     if (closest_object == nullptr) {
         return BG_COLOR;
@@ -126,7 +148,6 @@ std::vector<int> TraceRay(const std::vector<double>& O, const std::vector<double
          N[2] / VectorLength(N)};
 
     return VectorMult(closest_object->getColor(), ComputeLightning(P, N, VectorMult(D, -1), closest_object->getSpecular()));
-//    return closest_sphere->color; Old shit, Man
 }
 
 void MainWindow::draw_spheres() {
