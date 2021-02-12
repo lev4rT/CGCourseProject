@@ -17,6 +17,9 @@ public:
     ~MainWindow();
     virtual void paintEvent(QPaintEvent *);
 
+private slots:
+    void on_pushButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     void draw_spheres();

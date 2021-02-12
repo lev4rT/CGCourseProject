@@ -4,3 +4,5 @@ Object::Object()
 {
 
 }
+
+Object::~Object() { }
