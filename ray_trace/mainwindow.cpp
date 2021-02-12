@@ -21,14 +21,14 @@ std::vector<int> BG_COLOR = {255, 255, 255};
 
 
 Light l1 = {Light::type::ambient, 0.2};
-Light l2 = {Light::type::point, 0.6, {-1, 1, 4}};
+Light l2 = {Light::type::point, 0.6, {2, 1, 0}};
 Light l3 = {Light::type::directional, 0.2, {}, {1 , 4, 4}};
 std::vector<Light> lights = {l1, l2, l3};
 
-Sphere* s1 = new Sphere {{0, -1, 3}, 1, {255, 0, 0}};
-Sphere* s2 = new Sphere {{2, 0, 4}, 1, {0, 0, 255}};
-Sphere* s3 = new Sphere {{-2, 0, 4}, 1, {0, 255, 0}};
-Sphere* s4 = new Sphere {{0, -5001, 0}, 5000, {255, 255, 0}};
+Sphere* s1 = new Sphere {{0, -1, 3}, 1, {255, 0, 0}, 500};
+Sphere* s2 = new Sphere {{2, 0, 4}, 1, {0, 0, 255}, 10};
+Sphere* s3 = new Sphere {{-2, 0, 4}, 1, {0, 255, 0}, 100};
+Sphere* s4 = new Sphere {{0, -5001, 0}, 5000, {255, 255, 0}, 10};
 //Sphere* sLight = new Sphere {{l2.position[0], l2.position[1] - 0.5, l2.position[2]}, 0.1, {255, 255, 0}};
 std::vector<Object*> objects = {s1, s2, s3, s4};
 
@@ -62,7 +62,10 @@ std::vector<double> CanvasToViewport(double x, double y) {
     return {x * Vw / Cw, y * Vh / Ch, d};
 }
 
-double ComputeLightning(const std::vector<double>& P, const std::vector<double>& N) {
+double ComputeLightning(const std::vector<double>& P,
+                        const std::vector<double>& N,
+                        const std::vector<double>& V,
+                        const double& s) {
     double i = 0;
     std::vector<double> L;
     for (const auto& light : lights) {
@@ -77,9 +80,19 @@ double ComputeLightning(const std::vector<double>& P, const std::vector<double>&
                 L =light.direction;
             }
 
+            // Diffusual
             double n_dot_l = VectorScalarMult(N, L);
             if (n_dot_l > 0) {
                 i += light.intensity * n_dot_l / (VectorLength(N) * VectorLength(L));
+            }
+
+            // Mirroring
+            if (fabs(s + 1) > 1E-6) {
+                std::vector<double> R = VectorDiff(VectorMult(VectorMult(N, 2), VectorScalarMult(N, L)), L);
+                double r_dot_v = VectorScalarMult(R, V);
+                if (r_dot_v > 0) {
+                    i += light.intensity * pow(r_dot_v / (VectorLength(R) * VectorLength(V)), s);
+                }
             }
         }
     }
@@ -112,7 +125,7 @@ std::vector<int> TraceRay(const std::vector<double>& O, const std::vector<double
          N[1] / VectorLength(N),
          N[2] / VectorLength(N)};
 
-    return VectorMult(closest_object->getColor(), ComputeLightning(P, N));
+    return VectorMult(closest_object->getColor(), ComputeLightning(P, N, VectorMult(D, -1), closest_object->getSpecular()));
 //    return closest_sphere->color; Old shit, Man
 }
 

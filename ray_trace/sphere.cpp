@@ -36,3 +36,7 @@ double Sphere::getRadius() {
 void Sphere::setCenter(const std::vector<double>& newCenter) {
     center = newCenter;
 }
+
+double Sphere::getSpecular() {
+    return specular;
+}
