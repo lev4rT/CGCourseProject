@@ -40,3 +40,7 @@ void Sphere::setCenter(const std::vector<double>& newCenter) {
 double Sphere::getSpecular() {
     return specular;
 }
+
+double Sphere::getReflective() {
+    return reflective;
+}

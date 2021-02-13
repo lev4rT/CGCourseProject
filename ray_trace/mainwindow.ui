@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>882</width>
+    <height>676</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,7 +18,7 @@
     <property name="geometry">
      <rect>
       <x>120</x>
-      <y>60</y>
+      <y>30</y>
       <width>400</width>
       <height>401</height>
      </rect>
@@ -27,8 +27,8 @@
    <widget class="QPushButton" name="pushButton">
     <property name="geometry">
      <rect>
-      <x>570</x>
-      <y>130</y>
+      <x>560</x>
+      <y>430</y>
       <width>161</width>
       <height>131</height>
      </rect>
@@ -37,13 +37,118 @@
      <string>DRAW</string>
     </property>
    </widget>
+   <widget class="QWidget" name="gridLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>550</x>
+      <y>40</y>
+      <width>160</width>
+      <height>149</height>
+     </rect>
+    </property>
+    <layout class="QGridLayout" name="gridLayout">
+     <item row="1" column="1">
+      <widget class="QDoubleSpinBox" name="OyInput"/>
+     </item>
+     <item row="2" column="1">
+      <widget class="QDoubleSpinBox" name="OzInput"/>
+     </item>
+     <item row="0" column="1">
+      <widget class="QDoubleSpinBox" name="OxInput"/>
+     </item>
+     <item row="0" column="0">
+      <widget class="QLabel" name="labelOx">
+       <property name="text">
+        <string>Ox</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="labelOy">
+       <property name="text">
+        <string>Oy</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="labelOz">
+       <property name="text">
+        <string>Oz</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="gridLayoutWidget_2">
+    <property name="geometry">
+     <rect>
+      <x>550</x>
+      <y>230</y>
+      <width>188</width>
+      <height>171</height>
+     </rect>
+    </property>
+    <layout class="QGridLayout" name="gridLayout_2">
+     <item row="1" column="1">
+      <widget class="QDoubleSpinBox" name="OyAngleInput"/>
+     </item>
+     <item row="2" column="1">
+      <widget class="QDoubleSpinBox" name="OzAngleInput"/>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="labelOzSpin">
+       <property name="text">
+        <string>ZSpin</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0">
+      <widget class="QLabel" name="labelOxSpin">
+       <property name="text">
+        <string>XSpin</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="labelOySpin">
+       <property name="text">
+        <string>YSpin</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QDoubleSpinBox" name="OxAngleInput"/>
+     </item>
+     <item row="0" column="2">
+      <widget class="QPushButton" name="pushXSpin">
+       <property name="text">
+        <string>XSpin</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="2">
+      <widget class="QPushButton" name="pushYSpin">
+       <property name="text">
+        <string>YSpin</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="2">
+      <widget class="QPushButton" name="pushZSpin">
+       <property name="text">
+        <string>ZSpin</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>882</width>
      <height>25</height>
     </rect>
    </property>

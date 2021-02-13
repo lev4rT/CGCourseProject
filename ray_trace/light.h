@@ -12,12 +12,14 @@ public:
     };
 
 public:
-    Light(type t, double intensity, std::vector<double> position = {}, std::vector<double> direction = {});
     type t;
-    double intensity;
+    std::vector<double> color_intensity;
     std::vector<double> position;
     std::vector<double> direction;
+    double lightning_power;
 
+public:
+    Light(type t, std::vector<double> intensity, std::vector<double> position = {}, std::vector<double> direction = {}, double l_power = 1);
     void setPosition(std::vector<double> newPosition);
 };
 

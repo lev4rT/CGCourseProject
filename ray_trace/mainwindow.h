@@ -20,8 +20,14 @@ public:
 private slots:
     void on_pushButton_clicked();
 
+    void on_pushXSpin_clicked();
+
+    void on_pushYSpin_clicked();
+
+    void on_pushZSpin_clicked();
+
 private:
     Ui::MainWindow *ui;
-    void draw_spheres();
+    void draw_spheres(char spinAxis = '0');
 };
 #endif // MAINWINDOW_H

@@ -19,6 +19,7 @@ public:
     // NOT ALL OBJECT WILL HAVE RADIUS. WE SHOULD THINK HOW TO SOLVE IT IN FUTURE.
     virtual double getRadius() = 0;
     virtual double getSpecular() = 0;
+    virtual double getReflective() = 0;
 
 };
 

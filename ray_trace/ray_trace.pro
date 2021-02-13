@@ -19,6 +19,7 @@ SOURCES += \
     light.cpp \
     main.cpp \
     mainwindow.cpp \
+    mythread.cpp \
     object.cpp \
     sphere.cpp \
     vectors_math.cpp
@@ -26,6 +27,7 @@ SOURCES += \
 HEADERS += \
     light.h \
     mainwindow.h \
+    mythread.h \
     object.h \
     sphere.h \
     vectors_math.h
