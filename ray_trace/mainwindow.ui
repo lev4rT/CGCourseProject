@@ -48,13 +48,14 @@
     </property>
     <layout class="QGridLayout" name="gridLayout">
      <item row="1" column="1">
-      <widget class="QDoubleSpinBox" name="OyInput"/>
+      <widget class="QLineEdit" name="OyInput"/>
      </item>
-     <item row="2" column="1">
-      <widget class="QDoubleSpinBox" name="OzInput"/>
-     </item>
-     <item row="0" column="1">
-      <widget class="QDoubleSpinBox" name="OxInput"/>
+     <item row="2" column="0">
+      <widget class="QLabel" name="labelOz">
+       <property name="text">
+        <string>Oz</string>
+       </property>
+      </widget>
      </item>
      <item row="0" column="0">
       <widget class="QLabel" name="labelOx">
@@ -63,6 +64,9 @@
        </property>
       </widget>
      </item>
+     <item row="0" column="1">
+      <widget class="QLineEdit" name="OxInput"/>
+     </item>
      <item row="1" column="0">
       <widget class="QLabel" name="labelOy">
        <property name="text">
@@ -70,12 +74,8 @@
        </property>
       </widget>
      </item>
-     <item row="2" column="0">
-      <widget class="QLabel" name="labelOz">
-       <property name="text">
-        <string>Oz</string>
-       </property>
-      </widget>
+     <item row="2" column="1">
+      <widget class="QLineEdit" name="OzInput"/>
      </item>
     </layout>
    </widget>
@@ -89,12 +89,6 @@
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout_2">
-     <item row="1" column="1">
-      <widget class="QDoubleSpinBox" name="OyAngleInput"/>
-     </item>
-     <item row="2" column="1">
-      <widget class="QDoubleSpinBox" name="OzAngleInput"/>
-     </item>
      <item row="2" column="0">
       <widget class="QLabel" name="labelOzSpin">
        <property name="text">
@@ -116,9 +110,6 @@
        </property>
       </widget>
      </item>
-     <item row="0" column="1">
-      <widget class="QDoubleSpinBox" name="OxAngleInput"/>
-     </item>
      <item row="0" column="2">
       <widget class="QPushButton" name="pushXSpin">
        <property name="text">
@@ -139,6 +130,15 @@
         <string>ZSpin</string>
        </property>
       </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QLineEdit" name="OxAngleInput"/>
+     </item>
+     <item row="1" column="1">
+      <widget class="QLineEdit" name="OyAngleInput"/>
+     </item>
+     <item row="2" column="1">
+      <widget class="QLineEdit" name="OzAngleInput"/>
      </item>
     </layout>
    </widget>

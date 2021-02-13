@@ -8,12 +8,9 @@ class Sphere : public Object
 private:
     std::vector<double> center;
     double r;
-    std::vector<int> color;
-    double specular;
-    double reflective;
 public:
     Sphere(std::vector<double> ce, double radius, std::vector<int> co, double spec, double ref) :
-        center(ce), r(radius), color(co), specular(spec), reflective(ref) {}
+        Object(Object::type::sphere, co, spec, ref), center(ce), r(radius) {}
 
     virtual std::vector<double> IntersectRay(const std::vector<double>& O, const std::vector<double>& D) override;
     virtual std::vector<double>getCenter() override;

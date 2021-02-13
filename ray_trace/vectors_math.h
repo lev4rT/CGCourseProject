@@ -13,6 +13,7 @@ std::vector<int> VectorSum(const std::vector<int>& u, const std::vector<int>& v)
 std::vector<double> VectorMult(const std::vector<double>& u, const double& v);
 std::vector<int> VectorMult(const std::vector<int>& u, const double& v);
 std::vector<int> VectorMult(const std::vector<int>& u, const std::vector<double>& v);
+std::vector<double> VectorMult(const std::vector<double>& u, const std::vector<double>& v);
 std::vector<double> MatrixOnVectorMult(const std::vector<std::vector<double>>& M, const std::vector<double>& v);
 std::vector<double> VectorDiff(const std::vector<double>& u, const std::vector<double>& v);
 double VectorScalarMult(const std::vector<double>& U, const std::vector<double>& V);

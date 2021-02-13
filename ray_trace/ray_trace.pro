@@ -21,6 +21,9 @@ SOURCES += \
     mainwindow.cpp \
     mythread.cpp \
     object.cpp \
+    pixel.cpp \
+    plane.cpp \
+    ray_tracing_functions.cpp \
     sphere.cpp \
     vectors_math.cpp
 
@@ -29,6 +32,9 @@ HEADERS += \
     mainwindow.h \
     mythread.h \
     object.h \
+    pixel.h \
+    plane.h \
+    ray_tracing_functions.h \
     sphere.h \
     vectors_math.h
 

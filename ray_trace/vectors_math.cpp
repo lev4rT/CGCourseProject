@@ -24,6 +24,10 @@ std::vector<int> VectorMult(const std::vector<int>& u, const std::vector<double>
     return {(int) round(u[0] * v[0]), (int) round(u[1] * v[1]), (int) round(u[2] * v[2])};
 }
 
+std::vector<double> VectorMult(const std::vector<double>& u, const std::vector<double>& v) {
+    return {round(u[0] * v[0]), round(u[1] * v[1]), round(u[2] * v[2])};
+}
+
 
 std::vector<double> VectorDiff(const std::vector<double>& u, const std::vector<double>& v) {
     return {u[0] - v[0], u[1] - v[1], u[2] - v[2]};
