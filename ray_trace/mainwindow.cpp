@@ -29,7 +29,7 @@ std::vector<int> BG_COLOR = {0, 0, 0};
 
 
 Light l1 = {Light::type::ambient, {0.2, 0.2, 0.2}};
-Light l2 = {Light::type::point, {1, 1, 1}, {0, 2, 4}};
+Light l2 = {Light::type::point, {1, 1, 1}, {0, 2, 2}};
 //Light l3 = {Light::type::directional, 0.2, {}, {1 , 4, 4}};
 std::vector<Light> lights = {l1, l2};
 
@@ -37,13 +37,14 @@ Sphere* s1 = new Sphere {{0, -1, 3}, 1, {255, 10, 10}, 500, 0.2};
 Sphere* s2 = new Sphere {{2, 0, 4}, 1, {10, 10, 255}, 10, 0.3};
 Sphere* s3 = new Sphere {{-2, 0, 4}, 1, {10, 255, 10}, 100, 0.4};
 Sphere* s4 = new Sphere {{0, -5001, 0}, 5000, {255, 255, 0}, 1000, 0.1};
+Sphere* s5 = new Sphere {{0, 1, 4}, 1, {10, 255, 10}, 100, 0.4};
 
 //double A, double B,
 //double C, double D,
 //std::vector<int> co, double spec, double ref
-Plane* p1 = new Plane {0, 1, 0, 0, {255, 255, 0}, 0, 0, -5, 5, -5, 5, -5, 5};
+Plane* p1 = new Plane {0, 1, 0, -1, {255, 255, 0}, 0, 0, -5, 5, -5, 5, -5, 5};
 //Sphere* sLight = new Sphere {{l2.position[0], l2.position[1] - 0.5, l2.position[2]}, 0.1, {255, 255, 0}};
-std::vector<Object*> objects = {s1, p1};
+std::vector<Object*> objects = {s5, p1};
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)

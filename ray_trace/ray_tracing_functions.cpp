@@ -63,9 +63,20 @@ std::vector<double> ComputeLightning(const std::vector<double>& P,
             // Diffusual
             double n_dot_l = VectorScalarMult(N, L);
             if (n_dot_l > 0) {
-                i[0] += light.color_intensity[0] * n_dot_l / (VectorLength(N) * VectorLength(L));
-                i[1] += light.color_intensity[1] * n_dot_l / (VectorLength(N) * VectorLength(L));
-                i[2] += light.color_intensity[2] * n_dot_l / (VectorLength(N) * VectorLength(L));
+                if (light.color_intensity[0] > 0)
+                    i[0] += light.color_intensity[0] * n_dot_l / (VectorLength(N) * VectorLength(L));
+                else
+                    i[0] -= light.color_intensity[0] * n_dot_l / (VectorLength(N) * VectorLength(L));
+
+                if (light.color_intensity[1] > 0)
+                    i[1] += light.color_intensity[1] * n_dot_l / (VectorLength(N) * VectorLength(L));
+                else
+                    i[1] -= light.color_intensity[1] * n_dot_l / (VectorLength(N) * VectorLength(L));
+
+                if (light.color_intensity[2] > 0)
+                    i[2] += light.color_intensity[2] * n_dot_l / (VectorLength(N) * VectorLength(L));
+                else
+                    i[2] -= light.color_intensity[2] * n_dot_l / (VectorLength(N) * VectorLength(L));
             }
 
             // Mirroring

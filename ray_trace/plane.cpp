@@ -15,14 +15,14 @@ Plane::Plane(double A, double B,
 
 std::vector<double> Plane::IntersectRay(const std::vector<double>& O, const std::vector<double>& D)  {
     std::vector<double> V = {A, B, C};
-    std::vector<double> C;  // Point that lies on Plane
-    if (fabs(A) > 1e-6) {
-        C = {0, 0, -this->D / this->A};
-    } else if (fabs(B) > 1e-6) {
-        C = {0, 0, -this->D / this->B};
-    } else {
-        C = {0, 0, -this->D / this->C};
-    }
+    std::vector<double> C = {0, 0, 0};  // Point that lies on Plane
+//    if (fabs(A) > 1e-6) {
+//        C = {0, 0, -this->D / this->A};
+//    } else if (fabs(B) > 1e-6) {
+//        C = {0, 0, -this->D / this->B};
+//    } else {
+//        C = {0, 0, -this->D / this->C};
+//    }
     // Normalize
     V = {V[0] / VectorLength(V),
          V[1] / VectorLength(V),
