@@ -24,7 +24,7 @@ public:
 public:
     Plane(double A, double B,
           double C, double D,
-          std::vector<int> co, double spec, double ref,
+          std::vector<int> co, double spec, double ref, double transp,
           double x_min, double x_max,
           double y_min, double y_max,
           double z_min, double z_max);

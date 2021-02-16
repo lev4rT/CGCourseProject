@@ -10,16 +10,18 @@ public:
     enum type {
         sphere = 0,
         plane,
+        sphereSouceColor,
     };
 
 public:
+    type object_type;
     std::vector<int> color;
     double specular;
     double reflective;
-    type object_type;
+    double transparency;
 
 public:
-    Object(type o_type, std::vector<int> color, double specular, double reflective);
+    Object(type o_type, std::vector<int> color, double specular, double reflective, double transparency);
     virtual ~Object();
 
     virtual std::vector<double> IntersectRay(const std::vector<double>& O, const std::vector<double>& D) = 0;
@@ -28,6 +30,7 @@ public:
     virtual std::vector<int> getColor() { return {}; }
     virtual double getSpecular() { return 0; }
     virtual double getReflective() { return 0; }
+    double getTransparency() { return transparency; }
 
     // Sphere methods
     virtual std::vector<double>getCenter() { return {}; }

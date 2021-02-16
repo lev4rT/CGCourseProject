@@ -8,7 +8,8 @@ public:
     enum type {
         ambient = 0,
         point,
-        directional
+        directional,
+        pointLightSource,
     };
 
 public:

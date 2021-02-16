@@ -2,11 +2,11 @@
 
 Plane::Plane(double A, double B,
              double C, double D,
-             std::vector<int> co, double spec, double ref,
+             std::vector<int> co, double spec, double ref, double transp,
              double x_mn, double x_mx,
              double y_mn, double y_mx,
              double z_mn, double z_mx) :
-    Object(Object::type::plane, co, spec, ref),
+    Object(Object::type::plane, co, spec, ref, transp),
     A(A), B(B), C(C), D(D),
     x_min(x_mn), x_max(x_mx),
     y_min(y_mn), y_max(y_mx),

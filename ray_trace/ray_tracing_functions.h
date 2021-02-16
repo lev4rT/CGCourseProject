@@ -25,7 +25,8 @@ std::vector<double> ComputeLightning(const std::vector<double>& P,
                                      const std::vector<double>& V,
                                      const double& s,
                                      const std::vector<Light>& lights,
-                                     const std::vector<Object*>& objects);
+                                     const std::vector<Object*>& objects,
+                                     Object::type closestObjectType);
 
 std::vector<int> TraceRay(const std::vector<double>& O,
                           const std::vector<double>& D,

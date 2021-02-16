@@ -9,8 +9,8 @@ private:
     std::vector<double> center;
     double r;
 public:
-    Sphere(std::vector<double> ce, double radius, std::vector<int> co, double spec, double ref) :
-        Object(Object::type::sphere, co, spec, ref), center(ce), r(radius) {}
+    Sphere(std::vector<double> ce, double radius, std::vector<int> co, double spec, double ref, double transp, Object::type type = Object::type::sphere) :
+        Object(type, co, spec, ref, transp), center(ce), r(radius) {}
 
     virtual std::vector<double> IntersectRay(const std::vector<double>& O, const std::vector<double>& D) override;
     virtual std::vector<double>getCenter() override;

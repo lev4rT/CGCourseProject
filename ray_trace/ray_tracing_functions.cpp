@@ -63,20 +63,9 @@ std::vector<double> ComputeLightning(const std::vector<double>& P,
             // Diffusual
             double n_dot_l = VectorScalarMult(N, L);
             if (n_dot_l > 0) {
-                if (light.color_intensity[0] > 0)
-                    i[0] += light.color_intensity[0] * n_dot_l / (VectorLength(N) * VectorLength(L));
-                else
-                    i[0] -= light.color_intensity[0] * n_dot_l / (VectorLength(N) * VectorLength(L));
-
-                if (light.color_intensity[1] > 0)
-                    i[1] += light.color_intensity[1] * n_dot_l / (VectorLength(N) * VectorLength(L));
-                else
-                    i[1] -= light.color_intensity[1] * n_dot_l / (VectorLength(N) * VectorLength(L));
-
-                if (light.color_intensity[2] > 0)
-                    i[2] += light.color_intensity[2] * n_dot_l / (VectorLength(N) * VectorLength(L));
-                else
-                    i[2] -= light.color_intensity[2] * n_dot_l / (VectorLength(N) * VectorLength(L));
+                i[0] += light.color_intensity[0] * n_dot_l / (VectorLength(N) * VectorLength(L));
+                i[1] += light.color_intensity[1] * n_dot_l / (VectorLength(N) * VectorLength(L));
+                i[2] += light.color_intensity[2] * n_dot_l / (VectorLength(N) * VectorLength(L));
             }
 
             // Mirroring
@@ -120,7 +109,8 @@ std::vector<int> TraceRay(const std::vector<double>& O,
 
     std::vector<double> P = VectorSum(O, VectorMult(D, closest_t)); // Intersection point
     std::vector<double> N;  // Normal of the object in the P point
-    if (closest_object->object_type == Object::type::sphere) {
+    if (closest_object->object_type == Object::type::sphere ||
+        closest_object->object_type == Object::type::sphereSouceColor) {
         N = VectorDiff(P, closest_object->getCenter());
         N = {N[0] / VectorLength(N),
              N[1] / VectorLength(N),
@@ -154,14 +144,16 @@ std::vector<int> TraceRay(const std::vector<double>& O,
     if (local_color[2] < 0) { local_color[2] = 0; }
 
     double r = closest_object->getReflective();
+    double s = closest_object->getTransparency();
     if (depth <= 0 || r <= 0) {
         return local_color;
     }
 
-    std::vector<double> R = ReflectRay(VectorMult(D, -1), N);
-    std::vector<int> reflected_color = TraceRay(P, R, 1E-3, std::numeric_limits<double>::max(),
-                                                depth - 1, BG_COLOR,
-                                                objects, lights);
-
-    return VectorSum(VectorMult(local_color, 1 - r), VectorMult(reflected_color, r));
+    if (r >= 0) {
+        std::vector<double> R = ReflectRay(VectorMult(D, -1), N);
+        std::vector<int> reflected_color = TraceRay(P, R, 1E-3, std::numeric_limits<double>::max(),
+                                                    depth - 1, BG_COLOR,
+                                                    objects, lights);
+        return VectorSum(VectorMult(local_color, 1 - r), VectorMult(reflected_color, r));
+    }
 }
