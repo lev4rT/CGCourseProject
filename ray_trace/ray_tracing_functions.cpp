@@ -57,7 +57,8 @@ std::vector<double> ComputeLightning(const std::vector<double>& P,
             Object* closest_shadow_object = nullptr;
             ClosestIntersection(P, L, 1E-3, t_max, shadow_t, closest_shadow_object, objects);
             if (closest_shadow_object != nullptr) {
-                continue;
+                if (closest_shadow_object->object_type != Object::type::sphereSouceColor)
+                    continue;
             }
 
             // Diffusual
@@ -115,6 +116,9 @@ std::vector<int> TraceRay(const std::vector<double>& O,
         N = {N[0] / VectorLength(N),
              N[1] / VectorLength(N),
              N[2] / VectorLength(N)};
+        if (closest_object->object_type == Object::type::sphereSouceColor) {
+            N = VectorMult(N, -1);
+        }
     } else if (closest_object->object_type == Object::type::plane) {
 //        if (P[0] >= closest_object->getMinX() && P[0] <= closest_object->getMaxX() &&
 //            P[1] >= closest_object->getMinY() && P[1] <= closest_object->getMaxY() &&

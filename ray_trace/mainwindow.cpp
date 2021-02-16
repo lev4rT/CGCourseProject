@@ -29,7 +29,7 @@ std::vector<int> BG_COLOR = {0, 0, 0};
 
 
 Light l1 = {Light::type::ambient, {0.2, 0.2, 0.2}};
-Light l2 = {Light::type::point, {1, 1, 1}, {0, 0.7, 3}};
+Light l2 = {Light::type::point, {1, 0.1, 0.1}, {0, 0.7, 3}};
 //Light l3 = {Light::type::directional, 0.2, {}, {1 , 4, 4}};
 std::vector<Light> lights = {l1, l2};
 
@@ -38,7 +38,9 @@ Sphere* s2 = new Sphere {{2, 0, 4}, 1, {10, 10, 255}, 10, 0.3, 0.5};
 Sphere* s3 = new Sphere {{-2, 0, 4}, 1, {10, 255, 10}, 100, 0.4, 0.5};
 Sphere* s4 = new Sphere {{0, -5001, 0}, 5000, {255, 255, 0}, 1000, 0.1, 0.5};
 Sphere* s5 = new Sphere {{0, 1, 4}, 1, {10, 255, 10}, 100, 0.4, 0.5};
-Sphere* lightSphere = new Sphere {{l2.position[0], l2.position[1], l2.position[2]}, 0.1, {255, 0, 0}, 500, 0.2, 0.5, Object::type::sphereSouceColor};
+Sphere* lightSphere = new Sphere {{l2.position[0], l2.position[1], l2.position[2]}, 0.1, {255 * (int) l2.color_intensity[0],
+                                                                                          255 * (int) l2.color_intensity[1],
+                                                                                          255 * (int) l2.color_intensity[2]}, 500, 0.2, 0.5, Object::type::sphereSouceColor};
 
 //double A, double B,
 //double C, double D,
